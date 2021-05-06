@@ -1,0 +1,7 @@
+<form method="POST">
+    {% csrf_token %}
+    <table>
+    {{akun_form.as_table}}
+    </table>
+    <button type="submit">submit</button>
+</form>

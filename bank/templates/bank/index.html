@@ -1,6 +1,7 @@
 <h1> data transaksi </h1>
 
-{% for transaksis in transaksi %}
-    <h3> {{transaksis.id_account}} </h3>
-    <h3> {{transaksis.amount}} </h3>
-{% endfor %}
+<form action="/bank/akun" method="POST">
+     {% csrf_token %} 
+    {{form.name}}
+    <button type='submit'>find</button>
+</form>

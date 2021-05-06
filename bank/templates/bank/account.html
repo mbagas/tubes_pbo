@@ -1,0 +1,31 @@
+<h1> data akun </h1>
+
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+</style>
+
+<table style="width:100%;">
+  <tr>
+    <th>id</th>
+    <th>type</th>
+    <th>balance</th>
+  </tr>
+    {% for accounts in accounts %}
+  <tr>
+    <td>{{accounts.id_account}}</td>
+    <td>{{accounts.type}}</td>
+    <td>{{accounts.balance}}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+<a href="{% url 'createakun' %}">tambah</a>

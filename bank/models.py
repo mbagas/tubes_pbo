@@ -5,7 +5,8 @@ from django.db import models
 class Accounts(models.Model):
     id_account = models.AutoField(primary_key=True)
     id_customer = models.ForeignKey('Customers', models.DO_NOTHING, db_column='id_customer')
-    type = models.CharField(max_length=30)
+    tipe = [('saving','saving'),('loan','loan')]
+    type = models.CharField(max_length=30,choices=tipe,default='saving')
     balance = models.IntegerField()
 
     def __str__(self):
