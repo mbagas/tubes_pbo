@@ -1,7 +1,10 @@
 <form method="POST">
     {% csrf_token %}
     <table>
-    {{akun_form.as_table}}
+    
+    <label>tipe : </label>{{akun_form.type}} <br>
+    <label>balance : </label>{{akun_form.balance}} <br>
+    <tr> <input type="hidden" name="id_customer" value={{nasabah.id_customer}}> </tr>
     </table>
     <button type="submit">submit</button>
 </form>

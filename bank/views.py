@@ -18,10 +18,11 @@ def index(request, customer=0):
 
 def akun(request):
     form = find()
-    nasabah = models.Customers.objects.values_list('id_customer', flat=True).filter(name=request.POST['name'])
-    print(nasabah)
+    # nasabah = models.Customers.objects.values_list('id_customer', flat=True).filter(name=request.POST['name'])
+    nasabah = models.Customers.objects.get(name=request.POST['name'])
+    print(nasabah.id_customer)
     if nasabah:
-        accounts = models.Accounts.objects.filter(id_customer=nasabah[0])
+        accounts = models.Accounts.objects.filter(id_customer=nasabah.id_customer)
     else:
         accounts = models.Accounts.objects.filter(id_customer=0)
     context = {
@@ -29,11 +30,13 @@ def akun(request):
         'heading':'customer',
         'accounts':accounts,
         'form': form,
+        'nasabah':nasabah,
     }
 
     return render(request,'bank/account.html',context)
 
-def tambahakun(request):
+def tambahakun(request,nasabah_id):
+    cek_nasabah = models.Customers.objects.get(id_customer=nasabah_id)
     akun_form = createakun(request.POST or None)
 
     if request.method == 'POST':
@@ -44,6 +47,7 @@ def tambahakun(request):
     
     context = {
         "akun_form":akun_form,
+        "nasabah":cek_nasabah,
     }
 
     return render(request,'bank/createakun.html',context)

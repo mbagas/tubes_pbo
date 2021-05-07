@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
      path('',views.index, name='index'),
      path('akun',views.akun),
-     path('createakun',views.tambahakun, name='createakun'),
+     path('createakun/<nasabah_id>/',views.tambahakun, name='createakun'),
 ]
