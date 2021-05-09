@@ -14,3 +14,13 @@ class createakun(forms.ModelForm):
             'type',
             'balance',
         ]
+
+class transaksi(forms.ModelForm):
+    class Meta:
+        model = models.Accounttransactions
+        fields = [
+            'id_account',
+            'date_time',
+            'type',
+            'amount',
+        ]

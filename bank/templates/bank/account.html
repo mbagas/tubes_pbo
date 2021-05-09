@@ -25,10 +25,13 @@ th, td {
     <td>{{accounts.id_account}}</td>
     <td>{{accounts.type}}</td>
     <td>{{accounts.balance}}</td>
-    <td> <a href="#">transaksi</a>
+    <td> <a href="#">save</a>
+     <a href="#">loan</a>
+     <a href="#">check</a></td>
   </tr>
   {% endfor %}
 
 </table>
 
 <a href="{% url 'createakun' nasabah.id_customer %}">tambah</a>
+<a href="{% url 'deposit' %}">deposit</a>

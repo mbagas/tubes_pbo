@@ -1,0 +1,14 @@
+<h2>{{page_title}}</h2>
+
+{% comment %} <h3>{{nasabah.id_account}}</h3> {% endcomment %}
+<form method="POST">
+    {% csrf_token %}
+    <table>
+    {{transaksi_form.as_table}}
+    {% comment %} <input type="hidden" name="id_account" value={{nasabah.id_account}}>
+    <input type="hidden" name="type" value={{tipe}}>
+    <label>balance : </label>{{transaksi_form.amount}} <br>
+    <label>date : </label>{{transaksi_form.date_time}} <br> {% endcomment %}
+    </table>
+    <button type="submit">submit</button>
+</form>
