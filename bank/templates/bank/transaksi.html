@@ -1,14 +1,24 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Dashboard Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
 <h2>{{page_title}}</h2>
 
 {% comment %} <h3>{{nasabah.id_account}}</h3> {% endcomment %}
 <form method="POST">
     {% csrf_token %}
     <table>
-    {{transaksi_form.as_table}}
-    {% comment %} <input type="hidden" name="id_account" value={{nasabah.id_account}}>
-    <input type="hidden" name="type" value={{tipe}}>
-    <label>balance : </label>{{transaksi_form.amount}} <br>
-    <label>date : </label>{{transaksi_form.date_time}} <br> {% endcomment %}
+    
+    <label>id akun : {{id_akun}}</label> <br>
+    <input type="hidden" name="id_account" value={{id_akun}}>
+    <input type="hidden" name="type" value={{tipe}}> <br>
+    <label>amount : </label>{{transaksi_form.amount}} <br>
+    {% comment %} <label>date : </label>{{transaksi_form.date_time}} <br> {% endcomment %}
     </table>
     <button type="submit">submit</button>
 </form>
+
+{% endblock content %} 

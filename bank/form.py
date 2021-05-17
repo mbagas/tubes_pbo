@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models.fields import CharField
 
 from . import models
 
@@ -15,12 +16,7 @@ class createakun(forms.ModelForm):
             'balance',
         ]
 
-class transaksi(forms.ModelForm):
-    class Meta:
-        model = models.Accounttransactions
-        fields = [
-            'id_account',
-            'date_time',
-            'type',
-            'amount',
-        ]
+class transaksi(forms.Form):
+    id_account = forms.CharField(max_length=20)
+    type = forms.CharField(max_length=20)
+    amount = forms.IntegerField()

@@ -1,3 +1,10 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Dashboard Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
 <form method="POST">
     {% csrf_token %}
     <table>
@@ -8,3 +15,5 @@
     </table>
     <button type="submit">submit</button>
 </form>
+
+{% endblock content %} 

@@ -7,6 +7,7 @@ urlpatterns = [
      path('akun',views.akun),
      path('createakun/<nasabah_id>/',views.tambahakun, name='createakun'),
 
-     path('transaksi/deposit',views.Account.as_view(mode="deposit"), name='deposit'),
-     path('transaksi/withdraw',views.Account.as_view(mode="withdraw"), name='withdraw'),
+     path('transaksi/deposit/<akun_id>',views.Account.as_view(mode="deposit"), name='deposit'),
+     path('transaksi/withdraw/<akun_id>',views.Account.as_view(mode="withdraw"), name='withdraw'),
+     path('transaksi/BalanceEnquiry/<akun_id>',views.Account.as_view(mode="BalanceEnquiry"), name='BalanceEnquiry'),
 ]

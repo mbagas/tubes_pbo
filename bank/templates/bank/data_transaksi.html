@@ -1,0 +1,45 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Dashboard Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<h1> data transaksi </h1>
+<h2>id akun : {{id_akun}} </h2>
+<h3>tipe akun : {{id_akun}} </h3>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+</style>
+
+<table style="width:100%;">
+  <tr>
+    <th>id transaksi</th>
+    <th>type</th>
+    <th>amount</th>
+  </tr>
+    {% for data in data_transaksi %}
+  <tr>
+    
+    <td>{{data.id}}</td>
+    <td>{{data.type}}</td>
+    <td>{{data.amount}}</td>
+    {% comment %} <td> <a href="{% url 'deposit' accounts.id_account %}">deposit</a>
+     <a href="{% url 'withdraw' accounts.id_account %}">withdraw</a>
+     <a href="{% url 'BalanceEnquiry' accounts.id_account %}">Balance Enquiry</a></td> {% endcomment %}
+  </tr>
+  {% endfor %}
+
+</table>
+
+
+
+{% endblock content %} 

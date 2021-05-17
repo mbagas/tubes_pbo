@@ -18,13 +18,14 @@ class Account(View):
 
     # override method get dari parent class view
     def get(self, *args, **kwargs):
-
+        print(kwargs['akun_id'])
         if self.mode == 'deposit':
            
             self.form = transaksi()
             self.context = {
                 "page_title":"deposit",
                 "tipe":"deposit",
+                "id_akun":kwargs['akun_id'],
                 "transaksi_form":self.form,
             }
         elif self.mode == 'withdraw':
@@ -32,8 +33,19 @@ class Account(View):
             self.form = transaksi()
             self.context = {
                 "page_title":"withdraw",
-                "tipe":"deposit",
+                "tipe":"withdraw",
+                "id_akun":kwargs['akun_id'],
                 "transaksi_form":self.form,
+            }
+
+        elif self.mode == 'BalanceEnquiry':
+            data_transaksi = Accounttransactions.objects.filter(id_account=kwargs['akun_id'])
+            self.template_name = 'bank/data_transaksi.html'
+            self.context = {
+                "page_title":"Balance Enquiry",
+                "tipe":"BalanceEnquiry",
+                "id_akun":kwargs['akun_id'],
+                "data_transaksi":data_transaksi,
             }
         
         return render(self.request, self.template_name, self.context)
@@ -45,8 +57,12 @@ class Account(View):
         
         if self.mode == 'deposit':
             if self.form.is_valid():
-                
-                self.form.save()
+                new_transaksi = Accounttransactions(
+                    id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                    type = self.form.cleaned_data['type'],
+                    amount = self.form.cleaned_data['amount'],
+                )
+                new_transaksi.save()
                 id_akun = str(self.form.cleaned_data['id_account'])
                 nabung = int(self.form.cleaned_data['amount'])
                 akun = Accounts.objects.get(id_account=id_akun)
@@ -55,7 +71,12 @@ class Account(View):
         elif self.mode == 'withdraw':
             if self.form.is_valid():
                 
-                self.form.save()
+                new_transaksi = Accounttransactions(
+                    id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                    type = self.form.cleaned_data['type'],
+                    amount = self.form.cleaned_data['amount'],
+                )
+                new_transaksi.save()
                 id_akun = str(self.form.cleaned_data['id_account'])
                 ambil = int(self.form.cleaned_data['amount'])
                 akun = Accounts.objects.get(id_account=id_akun)
@@ -66,6 +87,9 @@ class Account(View):
         
         return redirect('index')
 
+class SavingAccount(Accounts,View):
+    def get():
+        return
 
 def index(request, customer=0):
     

@@ -1,3 +1,10 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Dashboard Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
 <h1> data akun </h1>
 <h2> {{nasabah.name}} </h2>
 
@@ -25,14 +32,20 @@ th, td {
     <td>{{accounts.id_account}}</td>
     <td>{{accounts.type}}</td>
     <td>{{accounts.balance}}</td>
-    <td> <a href="#">save</a>
-     <a href="#">loan</a>
-     <a href="#">check</a></td>
+    <td> <a href="{% url 'deposit' accounts.id_account %}">deposit</a>
+     <a href="{% url 'withdraw' accounts.id_account %}">withdraw</a>
+     <a href="{% url 'BalanceEnquiry' accounts.id_account %}">Balance Enquiry</a>
+     {% if accounts.type == 'loan' %}
+     asdasd
+     {% endif %} 
+     </td>
   </tr>
   {% endfor %}
 
 </table>
 
 <a href="{% url 'createakun' nasabah.id_customer %}">tambah</a>
-<a href="{% url 'deposit' %}">deposit</a>
-<a href="{% url 'withdraw' %}">withdraw</a>
+
+
+
+{% endblock content %} 
