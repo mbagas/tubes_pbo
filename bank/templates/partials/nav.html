@@ -1,16 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-info bg-info">
-    <div class="container">
-        <a class="navbar-brand text-white" >BANK MANAGEMENT</a> <!--href=""-->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    <div class="container-fluid">
+
+            <a class="navbar-brand text-white" >SukaBank.id</a> <!--href=""-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!--IF LOGIN-->
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+     </div>
+
+    <div class="container">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="{% url 'index' %}">Dashboard <span
+                    <a class="nav-dark text-white" href="{% url 'index' %}">Home <span
                             class="sr-only">(current)</span></a>
                 </li>
             </ul>
@@ -20,6 +23,86 @@
             
             <!--end IF LOGIN-->
         </div>
-    </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-dark text-white" href="{% url 'index' %}">About <span
+                            class="sr-only">(current)</span>
+                        </a>
+                </li>
+            </ul>
+            
+            
+            <!--end IF LOGIN-->
+            
+            <!--end IF LOGIN-->
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-dark text-white" href="{% url 'index' %}">Service <span
+                            class="sr-only">(current)</span>
+                        </a>
+                </li>
+            </ul>
+            
+            
+            <!--end IF LOGIN-->
+            
+            <!--end IF LOGIN-->
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-dark text-white" href="{% url 'index' %}">Blog <span
+                            class="sr-only">(current)</span>
+                        </a>
+                </li>
+            </ul>
+            
+            
+            <!--end IF LOGIN-->
+            
+            <!--end IF LOGIN-->
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-dark text-white" href="{% url 'index' %}">Pages <span
+                            class="sr-only">(current)</span>
+                        </a>
+                </li>
+            </ul>
+            
+            
+            <!--end IF LOGIN-->
+            
+            <!--end IF LOGIN-->
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-dark text-white" href="{% url 'index' %}">Contact <span
+                            class="sr-only">(current)</span>
+                        </a>
+                </li>
+            </ul>
+            
+            
+            <!--end IF LOGIN-->
+            
+            <!--end IF LOGIN-->
+        </div>
+       <div class="wrap">
+           <div class="search">
+           <input type="text" class="searchTerm" placeholder="search..">
+          <button type="submit" class="searchButton">
+             <i class="fa fa-search"></i>
+         </button>
+       </div>
+</div>
+       
+   </div>
 </nav>
 <!--End Navbar-->
