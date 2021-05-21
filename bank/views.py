@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, View
-
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 # import module
 from . import models
 from .models import Accounts, Customers, Accounttransactions
-from .form import find
+from .form import createnasabah, find
 from .form import createakun
 from .form import transaksi
 
@@ -87,9 +87,71 @@ class Account(View):
         
         return redirect('index')
 
-class SavingAccount(Accounts,View):
-    def get():
+#inheritance dari class Account dan view
+class CheckingAccount(Accounts,View):
+    mode = None
+    def post(self, *args, **kwargs):
         return
+
+
+#inheritance dari class Account dan view
+class LoanAccount(Account,View):
+    template_name = 'bank/transaksi.html'
+    form = transaksi()
+    mode = None
+    context = {}
+   
+    def get(self, *args, **kwargs):
+        print(kwargs)
+        self.form = transaksi()
+        self.context = {
+            "page_title":"Loan",
+            "tipe":"loan",
+            "id_akun":kwargs['akun_id'],
+            "transaksi_form":self.form,
+        }
+        return render(self.request, self.template_name, self.context)
+
+    def post(self, *args, **kwargs):
+        self.form = transaksi(self.request.POST or None)
+
+        if self.form.is_valid():
+            new_transaksi = Accounttransactions(
+                id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                type = self.form.cleaned_data['type'],
+                amount = self.form.cleaned_data['amount'],
+            )
+            new_transaksi.save()
+            id_akun = str(self.form.cleaned_data['id_account'])
+            pinjam = int(self.form.cleaned_data['amount'])
+            akun = Accounts.objects.get(id_account=id_akun)
+            akun.balance = akun.balance + pinjam
+            akun.save()
+        return redirect('index')
+
+
+#inherite dengan class view
+class Customer(View):
+    template_name = 'bank/buat_nasabah.html'
+    form = createnasabah(None)
+    context = {}
+   
+    def get(self, *args, **kwargs):
+        print("asd")
+        self.form = createnasabah()
+        self.context = {
+            "page_title":"Daftar Nasabah",
+            "nasabah_form":self.form,
+        }
+        return render(self.request, self.template_name, self.context)
+
+    def post(self, *args, **kwargs):
+        self.form = createnasabah(self.request.POST or None)
+
+        if self.form.is_valid():
+            self.form.save()
+            
+        return redirect('index')
 
 def index(request, customer=0):
     
@@ -102,21 +164,24 @@ def index(request, customer=0):
     return render(request,'bank/index.html',context)
 
 def akun(request):
-    form = find()
-    nasabah = models.Customers.objects.get(name=request.POST['name'])
-    if nasabah:
-        accounts = models.Accounts.objects.filter(id_customer=nasabah.id_customer)
-    else:
-        accounts = models.Accounts.objects.filter(id_customer=0)
-    context = {
-        'Title':'customer',
-        'heading':'customer',
-        'accounts':accounts,
-        'form': form,
-        'nasabah':nasabah,
-    }
+    try:
+        nasabah = models.Customers.objects.get(name=request.POST['name'])
+        if nasabah:
+            accounts = models.Accounts.objects.filter(id_customer=nasabah.id_customer)
+        else:
+            accounts = models.Accounts.objects.filter(id_customer=0)
+        context = {
+            'Title':'customer',
+            'heading':'customer',
+            'accounts':accounts,
+            'nasabah':nasabah,
+        
+        }
+        return render(request,'bank/account.html',context)
+    except ObjectDoesNotExist:
 
-    return render(request,'bank/account.html',context)
+        return redirect('index')
+
 
 def tambahakun(request,nasabah_id):
     cek_nasabah = models.Customers.objects.get(id_customer=nasabah_id)

@@ -4,9 +4,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %} 
-
-<h1> data akun </h1>
-<h2> {{nasabah.name}} </h2>
+<br>
+<br>
+<h1> data akun</h1>
+<h2> nama nasabah : {{nasabah.name}} </h2>
 
 <style>
 table, th, td {
@@ -32,11 +33,15 @@ th, td {
     <td>{{accounts.id_account}}</td>
     <td>{{accounts.type}}</td>
     <td>{{accounts.balance}}</td>
-    <td> <a href="{% url 'deposit' accounts.id_account %}">deposit</a>
-     <a href="{% url 'withdraw' accounts.id_account %}">withdraw</a>
-     <a href="{% url 'BalanceEnquiry' accounts.id_account %}">Balance Enquiry</a>
+    <td> <a class="btn btn-success" href="{% url 'deposit' accounts.id_account %}">deposit</a>
+    {% if accounts.type == 'checking account'  %}
+    <a class="btn btn-primary" href="{% url 'checkingwithdraw' accounts.id_account %}">checking withdraw</a>
+    {% else %}
+    <a class="btn btn-primary" href="{% url 'withdraw' accounts.id_account %}">withdraw</a>
+    {% endif %}
+     <a class="btn btn-warning" href="{% url 'BalanceEnquiry' accounts.id_account %}">Balance Enquiry</a>
      {% if accounts.type == 'loan' %}
-     asdasd
+     <a class="btn btn-success" href="{% url 'loan' accounts.id_account %}">Loan</a>
      {% endif %} 
      </td>
   </tr>
@@ -44,7 +49,7 @@ th, td {
 
 </table>
 
-<a href="{% url 'createakun' nasabah.id_customer %}">tambah</a>
+<a class="btn btn-success" href="{% url 'createakun' nasabah.id_customer %}">tambah</a>
 
 
 

@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import fields
 from django.db.models.fields import CharField
 
 from . import models
@@ -14,6 +15,16 @@ class createakun(forms.ModelForm):
             'id_customer',
             'type',
             'balance',
+        ]
+
+class createnasabah(forms.ModelForm):
+    class Meta:
+        model = models.Customers
+        fields = [
+            'name',
+            'address',
+            'phone',
+            'email',
         ]
 
 class transaksi(forms.Form):
