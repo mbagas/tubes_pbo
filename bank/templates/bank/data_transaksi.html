@@ -7,7 +7,7 @@
 
 <h1> data transaksi </h1>
 <h2>id akun : {{id_akun}} </h2>
-<h3>tipe akun : {{id_akun}} </h3>
+<h3>tipe akun : {{tipe}} </h3>
 
 <style>
 table, th, td {
@@ -25,6 +25,7 @@ th, td {
     <th>id transaksi</th>
     <th>type</th>
     <th>amount</th>
+    <th>action</th>
   </tr>
     {% for data in data_transaksi %}
   <tr>
@@ -32,6 +33,10 @@ th, td {
     <td>{{data.id}}</td>
     <td>{{data.type}}</td>
     <td>{{data.amount}}</td>
+    <td>
+    {% if data.type == 'loan' %}
+    <a class="btn btn-danger" href="{% url 'payloan' id_akun data.id %}">Pay Loan</a>
+    {% endif %}
     {% comment %} <td> <a href="{% url 'deposit' accounts.id_account %}">deposit</a>
      <a href="{% url 'withdraw' accounts.id_account %}">withdraw</a>
      <a href="{% url 'BalanceEnquiry' accounts.id_account %}">Balance Enquiry</a></td> {% endcomment %}

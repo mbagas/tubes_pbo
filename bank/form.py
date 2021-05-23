@@ -31,3 +31,6 @@ class transaksi(forms.Form):
     id_account = forms.CharField(max_length=20)
     type = forms.CharField(max_length=20)
     amount = forms.IntegerField()
+
+    #only for loan
+    id_pinjam = forms.CharField(max_length=30, required=False)

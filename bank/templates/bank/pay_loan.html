@@ -1,0 +1,25 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Pay loan{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<h2>{{page_title}}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+    
+    <label>id akun : {{id_akun}}</label> <br>
+    <label>id pinjam : {{data_pinjam.id}}</label> <br>
+    <input type="hidden" name="id_pinjam" value={{data_pinjam.id}}>
+    <input type="hidden" name="id_account" value={{id_akun}}>
+    <input type="hidden" name="type" value={{tipe}}> <br>
+    <label>amount : </label><input type="text" name="amount" value={{data_pinjam.amount}} readonly> <br>
+    {% comment %} <label>date : </label>{{transaksi_form.date_time}} <br> {% endcomment %}
+    </table>
+    <button type="submit">submit</button>
+</form>
+
+{% endblock content %} 

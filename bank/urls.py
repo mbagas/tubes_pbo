@@ -20,6 +20,9 @@ urlpatterns = [
      #class loan
      path('transaksi/loan/<akun_id>',views.LoanAccount.as_view(mode="loan"), name='loan'),
 
+     #class payloan
+     path('transaksi/payloan/<akun_id>/<pinjam_id>',views.payloan.as_view(), name='payloan'),
+
      #class customer
      path('daftar_nasabah', views.Customer.as_view(), name='daftar'),
 ]

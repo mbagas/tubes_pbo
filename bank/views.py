@@ -8,24 +8,29 @@ from .models import Accounts, Customers, Accounttransactions
 from .form import createnasabah, find
 from .form import createakun
 from .form import transaksi
-
-# inheritance dari class view
+# ===================================
+# === inheritance dari class view ===
+# === untuk transaksi dasar akun ===
+# ===================================
 class Account(View):
     template_name = 'bank/transaksi.html'
     form = transaksi()
     mode = None
     context = {}
 
-    # override method get dari parent class view
+    # ===================================
+    # === override method get dari parent class view ===
+    # ===================================
     def get(self, *args, **kwargs):
         print(kwargs['akun_id'])
+        data_akun = Accounts.objects.get(id_account=kwargs['akun_id'])
         if self.mode == 'deposit':
            
             self.form = transaksi()
             self.context = {
                 "page_title":"deposit",
                 "tipe":"deposit",
-                "id_akun":kwargs['akun_id'],
+                "id_akun":data_akun.id_account,
                 "transaksi_form":self.form,
             }
         elif self.mode == 'withdraw':
@@ -40,17 +45,20 @@ class Account(View):
 
         elif self.mode == 'BalanceEnquiry':
             data_transaksi = Accounttransactions.objects.filter(id_account=kwargs['akun_id'])
+            data_akun = Accounts.objects.get(id_account=kwargs['akun_id'])
             self.template_name = 'bank/data_transaksi.html'
             self.context = {
                 "page_title":"Balance Enquiry",
-                "tipe":"BalanceEnquiry",
+                "tipe":data_akun.type,
                 "id_akun":kwargs['akun_id'],
                 "data_transaksi":data_transaksi,
             }
         
         return render(self.request, self.template_name, self.context)
-        
-    # override methode post dari parent class view    
+    
+    # ===================================
+    # === override methode post dari parent class view ===    
+    # ===================================
     def post(self, *args, **kwargs):
 
         self.form = transaksi(self.request.POST or None)
@@ -86,21 +94,25 @@ class Account(View):
                 akun.save()
         
         return redirect('index')
-
-#inheritance dari class Account dan view
+# ===============================================
+# === inheritance dari class Account dan view ===
+# ===============================================
 class CheckingAccount(Accounts,View):
     mode = None
     def post(self, *args, **kwargs):
         return
 
-
-#inheritance dari class Account dan view
+# ===============================================
+# === inheritance dari class Account dan view ===
+# === untuk nambah pinjaman ===
+# ===============================================
 class LoanAccount(Account,View):
     template_name = 'bank/transaksi.html'
     form = transaksi()
     mode = None
     context = {}
    
+   # === override method get dari parent class view ===
     def get(self, *args, **kwargs):
         print(kwargs)
         self.form = transaksi()
@@ -112,6 +124,7 @@ class LoanAccount(Account,View):
         }
         return render(self.request, self.template_name, self.context)
 
+    # === override methode post dari parent class view ===  
     def post(self, *args, **kwargs):
         self.form = transaksi(self.request.POST or None)
 
@@ -129,8 +142,55 @@ class LoanAccount(Account,View):
             akun.save()
         return redirect('index')
 
+# ===============================================
+# === untuk bayar pinjaman ===
+# ===============================================
+class payloan(LoanAccount, View):
+    template_name = 'bank/pay_loan.html'
+    form = transaksi()
+    mode = None
+    context = {}
+   
+   # === override method get dari parent class view ===
+    def get(self, *args, **kwargs):
+        print(kwargs)
+        self.form = transaksi()
+        data_pinjam = Accounttransactions.objects.get(id=kwargs['pinjam_id'])
+        data_pinjam.amount = data_pinjam.amount + (data_pinjam.amount*0.1)
+        self.context = {
+            "page_title":"Pay Loan",
+            "tipe":"Pay_loan",
+            "id_akun":kwargs['akun_id'],
+            "data_pinjam":data_pinjam,
+            "transaksi_form":self.form,
+        }
+        return render(self.request, self.template_name, self.context)
 
-#inherite dengan class view
+    # === override methode post dari parent class view ===  
+    def post(self, *args, **kwargs):
+        self.form = transaksi(self.request.POST or None)
+
+        if self.form.is_valid():
+            new_transaksi = Accounttransactions(
+                id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                type = self.form.cleaned_data['type'],
+                amount = self.form.cleaned_data['amount'],
+            )
+            new_transaksi.save()
+            id_akun = str(self.form.cleaned_data['id_account'])
+            pinjam = int(self.form.cleaned_data['amount'])
+            akun = Accounts.objects.get(id_account=id_akun)
+            akun.balance = akun.balance - pinjam
+            akun.save()
+            pinjam_lunas = Accounttransactions.objects.get(id=self.form.cleaned_data['id_pinjam'])
+            pinjam_lunas.amount = 0
+            pinjam_lunas.save()
+        return redirect('index')
+
+
+# ===============================================
+# === inherite dengan class view ===
+# ===============================================
 class Customer(View):
     template_name = 'bank/buat_nasabah.html'
     form = createnasabah(None)
