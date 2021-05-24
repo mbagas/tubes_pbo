@@ -3,3 +3,5 @@ djangorestframework
 pymysql
 django-crispy-forms
 Pillow
+celery
+django-celery

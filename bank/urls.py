@@ -1,4 +1,5 @@
 from django.urls import path, include, re_path
+from django.views.generic.base import View
 
 from . import views
 
@@ -17,6 +18,7 @@ urlpatterns = [
      path('transaksi/checkingwithdraw/<akun_id>',views.CheckingAccount.as_view(), name='checkingwithdraw'),
 
      #class saving
+     path('transaksi/savinginterest/<akun_id>', views.SavingAccount.as_view(), name='savinginterest'),
 
      #class loan
      path('transaksi/loan/<akun_id>',views.LoanAccount.as_view(mode="loan"), name='loan'),

@@ -33,7 +33,12 @@ th, td {
     <td>{{accounts.id_account}}</td>
     <td>{{accounts.type}}</td>
     <td>{{accounts.balance}}</td>
-    <td> <a class="btn btn-success" href="{% url 'deposit' accounts.id_account %}">deposit</a>
+    <td> 
+    {% if accounts.type == 'saving' %}
+    <a class="btn btn-success" href="{% url 'savinginterest' accounts.id_account %}">saving with interest</a>
+    {% else %}
+    <a class="btn btn-success" href="{% url 'deposit' accounts.id_account %}">deposit</a>
+    {% endif %}
     {% if accounts.type == 'checking account'  %}
     <a class="btn btn-primary" href="{% url 'checkingwithdraw' accounts.id_account %}">checking withdraw</a>
     {% else %}

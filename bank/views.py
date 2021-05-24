@@ -9,6 +9,7 @@ from .form import createnasabah, find
 from .form import createakun
 from .form import transaksi
 
+
 # ===================================
 # === inheritance dari class view ===
 # === untuk transaksi dasar akun ===
@@ -93,6 +94,40 @@ class Account(View):
                 if akun.balance < 0:
                     akun.balance = 0
                 akun.save()
+        
+        return redirect('index')
+
+class SavingAccount(Accounts,View):
+    template_name = 'bank/transaksi.html'
+    form = transaksi()
+    mode = None
+    context = {}
+
+    def get(self, *args, **kwargs):
+        self.form = transaksi()
+        self.context = {
+            "page_title":"saving with interest",
+            "tipe":"saving",
+            "id_akun":kwargs['akun_id'],
+            "transaksi_form":self.form,
+        }
+        return render(self.request, self.template_name, self.context)
+
+    def post(self, *args, **kwargs):
+        self.form = transaksi(self.request.POST or None)
+        if self.form.is_valid():
+                
+            new_transaksi = Accounttransactions(
+                id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                type = self.form.cleaned_data['type'],
+                amount = self.form.cleaned_data['amount'],
+            )
+            new_transaksi.save()
+            id_akun = str(self.form.cleaned_data['id_account'])
+            nabung = int(self.form.cleaned_data['amount'])
+            akun = Accounts.objects.get(id_account=id_akun)
+            akun.balance = akun.balance + nabung + (nabung*0.1) #saving with interest
+            akun.save()
         
         return redirect('index')
 # ===============================================
