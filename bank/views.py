@@ -99,9 +99,38 @@ class Account(View):
 # === inheritance dari class Account dan view ===
 # ===============================================
 class CheckingAccount(Accounts,View):
+    template_name = 'bank/transaksi.html'
+    form = transaksi()
     mode = None
+    context = {}
+
+    def get(self, *args, **kwargs):
+        self.form = transaksi()
+        self.context = {
+            "page_title":"Checking Withdraw",
+            "tipe":"Withdraw",
+            "id_akun":kwargs['akun_id'],
+            "transaksi_form":self.form,
+        }
+        return render(self.request, self.template_name, self.context)
+
     def post(self, *args, **kwargs):
-        return
+        self.form = transaksi(self.request.POST or None)
+        if self.form.is_valid():
+                
+            new_transaksi = Accounttransactions(
+                id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                type = self.form.cleaned_data['type'],
+                amount = self.form.cleaned_data['amount'],
+            )
+            new_transaksi.save()
+            id_akun = str(self.form.cleaned_data['id_account'])
+            ambil = int(self.form.cleaned_data['amount'])
+            akun = Accounts.objects.get(id_account=id_akun)
+            akun.balance = akun.balance - ambil
+            akun.save()
+        
+        return redirect('index')
 
 # ===============================================
 # === inheritance dari class Account dan view ===
@@ -251,9 +280,9 @@ def tambahakun(request,nasabah_id):
         print("asdasdasdasdd")
         akun_form = createakun(request.POST or None)
         if akun_form.is_valid():
-            id_nasabah = Customers.objects.get(id_customer=akun_form.cleaned_data['id_customer'])
+            # id_nasabah = Customers.objects.get(id_customer=akun_form.cleaned_data['id_customer'])
             add_akun = Accounts(
-                id_customer = id_nasabah,
+                id_customer = cek_nasabah,
                 type = akun_form.cleaned_data['type'],
                 balance = akun_form.cleaned_data['balance']
             )
@@ -269,3 +298,9 @@ def tambahakun(request,nasabah_id):
     }
 
     return render(request,'bank/createakun.html',context)
+
+def contact(request):
+    context = {
+
+    }
+    return render(request, 'bank/contact.html', context)

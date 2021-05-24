@@ -6,6 +6,7 @@ urlpatterns = [
      path('',views.index, name='index'),
      path('akun',views.akun),
      path('createakun/<nasabah_id>',views.tambahakun, name='createakun'),
+     path('contact',views.contact, name='contact'),
 
      #class account
      path('transaksi/deposit/<akun_id>',views.Account.as_view(mode="deposit"), name='deposit'),
@@ -13,7 +14,7 @@ urlpatterns = [
      path('transaksi/BalanceEnquiry/<akun_id>',views.Account.as_view(mode="BalanceEnquiry"), name='BalanceEnquiry'),
      
      #class chechking
-     path('transaksi/checkingwithdraw/<akun_id>',views.CheckingAccount.as_view(mode="chechkingwithdraw"), name='checkingwithdraw'),
+     path('transaksi/checkingwithdraw/<akun_id>',views.CheckingAccount.as_view(), name='checkingwithdraw'),
 
      #class saving
 
