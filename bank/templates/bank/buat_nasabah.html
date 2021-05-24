@@ -5,13 +5,15 @@
 
 {% block content %} 
 
-<form method="POST">
+<form action="daftar_nasabah" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <table>
+    {% comment %} <table> {% endcomment %}
     
-    {{nasabah_form.as_table}}
-    </table>
-    <button type="submit">submit</button>
+    {{nasabah_form|crispy}}
+    {% comment %} </table> <br> {% endcomment %}
+    <button class="btn-primary" type="Submit">submit</button>
+    <button class="btn-primary" type="submit">submit</button>
+    <button type="submit">asd</button>
 </form>
 
 {% endblock content %} 

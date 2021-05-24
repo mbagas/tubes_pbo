@@ -5,15 +5,15 @@
 
 {% block content %} 
 
-<form method="POST">
+<form  method="POST">
     {% csrf_token %}
-    <table>
-    
+
+    {% comment %} {{akun_form|crispy}} {% endcomment %}
     <label>tipe : </label>{{akun_form.type}} <br>
     <label>balance : </label>{{akun_form.balance}} <br>
-    <tr> <input type="hidden" name="id_customer" value={{nasabah.id_customer}}> </tr>
-    </table>
-    <button type="submit">submit</button>
+    <tr> <input type="text" name="id_customer" value={{nasabah.id_customer}}> </tr>
+
+    <button class"btn-primary" type="submit">submit</button>
 </form>
 
 {% endblock content %} 

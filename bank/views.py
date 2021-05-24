@@ -8,6 +8,7 @@ from .models import Accounts, Customers, Accounttransactions
 from .form import createnasabah, find
 from .form import createakun
 from .form import transaksi
+
 # ===================================
 # === inheritance dari class view ===
 # === untuk transaksi dasar akun ===
@@ -193,7 +194,7 @@ class payloan(LoanAccount, View):
 # ===============================================
 class Customer(View):
     template_name = 'bank/buat_nasabah.html'
-    form = createnasabah(None)
+    form = createnasabah()
     context = {}
    
     def get(self, *args, **kwargs):
@@ -245,14 +246,23 @@ def akun(request):
 
 def tambahakun(request,nasabah_id):
     cek_nasabah = models.Customers.objects.get(id_customer=nasabah_id)
-    akun_form = createakun(request.POST or None)
-
+    
     if request.method == 'POST':
+        print("asdasdasdasdd")
+        akun_form = createakun(request.POST or None)
         if akun_form.is_valid():
-            akun_form.save()
+            id_nasabah = Customers.objects.get(id_customer=akun_form.cleaned_data['id_customer'])
+            add_akun = Accounts(
+                id_customer = id_nasabah,
+                type = akun_form.cleaned_data['type'],
+                balance = akun_form.cleaned_data['balance']
+            )
+            add_akun.save()
         
         return redirect('index')
-    
+    else :
+        print("123")
+        akun_form = createakun()
     context = {
         "akun_form":akun_form,
         "nasabah":cek_nasabah,
