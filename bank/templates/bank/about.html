@@ -15,9 +15,30 @@
 	<div class="row">
 		<div class="col text-center">
 			<h1> Bank Management System</h1>
-
-			<p><br>Develop an application to help a bank manager manage customer accounts. The bank offer several bank accounts types. Each customer can have one or more accounts. The customer can go the operations permitted by the account type, such as deposit, withdraw, or balance enquire. The bank manages the account by debiting the fees, or crediting the profits. Both the bank employees and the customers can print reports about the current account details.</p>
 		</div>
+	<div>
+		<p><br>Develop an application to help a bank manager manage customer accounts. The bank offer several bank accounts types. Each customer can have one or more accounts. The customer can go the operations permitted by the account type, such as deposit, withdraw, or balance enquire. The bank manages the account by debiting the fees, or crediting the profits. Both the bank employees and the customers can print reports about the current account details.</p>
+		<h6>Design :</h6>
+		<p>Basic Classes: Account, CheckingAccount, SavingAccount, Loan, Customer:</p>
+		<ul>
+			<li>The Account is a general account class that contains balance as instance variable, deposit, withdraw, and balanceEnquiry as instance methods.</li>
+			<li>CheckingAccount is a subclass from the Account class that allows overdraft while withdrawing (making the balance go below zero up to the specified credit limit), by debiting the account balance with an overdraft fee . It has a creditlimit as an instance variable.</li>
+			<li>The Saving Account is a subclass from the Account class that has an interest rate as an instance variable. The system credit the balance with monthly interest based on the account balance and the interest rate. </li>
+			<li>The loan account is a subclass from the Account class that has principal amount, interest rate, loan duration in months as instance variables. The loan balance is debited by monthly interest each month based on the interest rate and the loan balance</li>
+			<li>Each customer can have any number of accounts of any type.</li>
+			<li>The banking system provide the customer with an interface to access all banking operationsdescribed above and review reports about transactions and current balance.</li>
+			<li>A banking administrator can print a report about all customers and their current balances<br></li>
+		</ul>
+	</div>
+	<div>
+		<h6>Provides an interface for the user to:</h6>
+		<ol>
+			<li>Adding/editing/deleting GUI to each class,</li>
+			<li>GUI for Costumers to open a new account</li>
+			<li>GUI for Costumers to vieew transactions and balance for all their accounts</li>
+			<li>GUI for a administrator to view all customer balances.</li>
+		</ol>
+	</div>
 	</div>
 	<br>
 </div>
