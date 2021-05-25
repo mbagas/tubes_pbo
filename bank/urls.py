@@ -8,6 +8,7 @@ urlpatterns = [
      path('akun',views.akun),
      path('createakun/<nasabah_id>',views.tambahakun, name='createakun'),
      path('contact',views.contact, name='contact'),
+     path('about',views.about, name='about'),
 
      #class account
      path('transaksi/deposit/<akun_id>',views.Account.as_view(mode="deposit"), name='deposit'),

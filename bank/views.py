@@ -339,3 +339,9 @@ def contact(request):
 
     }
     return render(request, 'bank/contact.html', context)
+
+def about(request):
+    context = {
+
+    }
+    return render(request, 'bank/about.html', context)
