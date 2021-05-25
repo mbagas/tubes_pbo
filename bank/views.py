@@ -170,6 +170,8 @@ class CheckingAccount(Accounts,View):
             ambil = int(self.form.cleaned_data['amount'])
             akun = Accounts.objects.get(id_account=id_akun)
             akun.balance = akun.balance - ambil
+            if akun.balance < -2000000:
+                    akun.balance = -2000000
             akun.save()
         
         return redirect('index')
@@ -228,7 +230,7 @@ class payloan(LoanAccount, View):
         print(kwargs)
         self.form = transaksi()
         data_pinjam = Accounttransactions.objects.get(id=kwargs['pinjam_id'])
-        data_pinjam.amount = data_pinjam.amount + (data_pinjam.amount*0.1)
+        data_pinjam.amount = int(data_pinjam.amount + (data_pinjam.amount*0.1))
         self.context = {
             "page_title":"Pay Loan",
             "tipe":"Pay_loan",
