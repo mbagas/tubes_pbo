@@ -4,17 +4,25 @@
 {% load crispy_forms_tags %}
 
 {% block content %} 
-<br>
+<div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6 ">
+
 <h1>Daftar Nasabah</h1>
-<form action="daftar_nasabah" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% comment %} <table> {% endcomment %}
+            <div class="d-flex justify-content-center">
+                <form action="daftar_nasabah" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% comment %} <table> {% endcomment %}
+                    
+                    {{nasabah_form|crispy}}
+                    {% comment %} </table> <br> {% endcomment %}
+                    <br>
+                    <button class="btn btn-primary" type="Submit">Register</button>
+
+                </form>
+            </div>
+        </div>
     
-    {{nasabah_form|crispy}}
-    {% comment %} </table> <br> {% endcomment %}
-    <br>
-    <button class="btn btn-primary" type="Submit">submit</button>
-
-</form>
-
+</div>
 {% endblock content %} 
