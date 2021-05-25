@@ -35,7 +35,7 @@ th, td {
     <td>{{accounts.balance}}</td>
     <td> 
     {% if accounts.type == 'saving' %}
-    <a class="btn btn-success" href="{% url 'savinginterest' accounts.id_account %}">saving with interest</a>
+    <a class="btn btn-success" href="{% url 'savinginterest' accounts.id_account %}">deposit with interest</a>
     {% else %}
     <a class="btn btn-success" href="{% url 'deposit' accounts.id_account %}">deposit</a>
     {% endif %}
@@ -54,7 +54,7 @@ th, td {
 
 </table>
 
-<a class="btn btn-success" href="{% url 'createakun' nasabah.id_customer %}">tambah</a>
+<a class="btn btn-success" href="{% url 'createakun' nasabah.id_customer %}">tambah akun</a>
 
 
 
