@@ -11,6 +11,6 @@ Anggota kelompok :
 - Muhammad Aldito Rizki (119140170)
 
 Kontribusi Tim :
-Muksin Bagaskara 	  	:	Membuat aplikasi(programmer)
-Muhammad Aldito Rizki	:	Design HTML
-Ayu Lintang Gayanti		:	Laporan dan PPT
+- Muksin Bagaskara 	  	:	Membuat aplikasi(programmer)
+- Muhammad Aldito Rizki	:	Design HTML
+- Ayu Lintang Gayanti		:	Laporan dan PPT
