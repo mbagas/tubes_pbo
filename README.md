@@ -1,9 +1,12 @@
 # tubes_pbo
-TUGAS BESAR PBO 
+TUGAS BESAR 
 
-tentang bank management
+- Mata Kuliah : Pemrograman berorientasi objek
+- Topic : Bank Management System
+- Program Studi : Teknik Informatika
 
 Anggota kelompok :
+- Ayu Lintang Gayanti (119140095)
 - Muksin Bagaskara (119140167)
 - Muhammad Aldito Rizki (119140170)
-- Ayu Lintang Gayanti (119140095)
+
