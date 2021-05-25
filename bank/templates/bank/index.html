@@ -23,8 +23,9 @@
 		<div class="col text-center">
 			<form action="/bank/akun" method="POST">
                 {% csrf_token %} 
-                {{form.name}}
-                <button class="btn-primary" type='submit'>find</button>
+                {{form|crispy}}
+				<br>
+                <button class="btn btn-primary" type='submit'>Search Customer</button>
             </form>
 		</div>
 	</div>

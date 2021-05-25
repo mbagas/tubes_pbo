@@ -4,16 +4,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %} 
-
+<br>
+<h1>Buat Akun Baru</h1>
 <form  method="POST">
     {% csrf_token %}
 
     {% comment %} {{akun_form|crispy}} {% endcomment %}
     <label>tipe : </label>{{akun_form.type}} <br>
     <label>balance : </label>{{akun_form.balance}} <br>
-    <tr> <input type="text" name="id_customer" value={{nasabah.id_customer}}> </tr>
+    <input type="hidden" name="id_customer" value="{{nasabah.id_customer}}">
 
-    <button class"btn-primary" type="submit">submit</button>
+    <button class"btn btn-danger" type="submit">submit</button>
 </form>
 
 {% endblock content %} 

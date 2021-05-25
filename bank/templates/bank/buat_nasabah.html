@@ -4,16 +4,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %} 
-
+<br>
+<h1>Daftar Nasabah</h1>
 <form action="daftar_nasabah" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% comment %} <table> {% endcomment %}
     
     {{nasabah_form|crispy}}
     {% comment %} </table> <br> {% endcomment %}
-    <button class="btn-primary" type="Submit">submit</button>
-    <button class="btn-primary" type="submit">submit</button>
-    <button type="submit">asd</button>
+    <br>
+    <button class="btn btn-primary" type="Submit">submit</button>
+
 </form>
 
 {% endblock content %} 

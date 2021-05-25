@@ -5,7 +5,7 @@ from django.db.models.fields import CharField
 from . import models
 
 class find(forms.Form):
-    name = forms.CharField(label='Your name', max_length=100)
+    name = forms.CharField(label='Your name', max_length=100,widget=forms.TextInput(attrs={'placeholder': 'username'}))
 
 class createakun(forms.ModelForm):
     class Meta:

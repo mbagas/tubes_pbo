@@ -107,7 +107,7 @@ class SavingAccount(Accounts,View):
         self.form = transaksi()
         self.context = {
             "page_title":"saving with interest",
-            "tipe":"saving",
+            "tipe":"deposit",
             "id_akun":kwargs['akun_id'],
             "transaksi_form":self.form,
         }
@@ -116,15 +116,22 @@ class SavingAccount(Accounts,View):
     def post(self, *args, **kwargs):
         self.form = transaksi(self.request.POST or None)
         if self.form.is_valid():
-                
+            #menyimpan data deposit    
             new_transaksi = Accounttransactions(
                 id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
                 type = self.form.cleaned_data['type'],
                 amount = self.form.cleaned_data['amount'],
             )
             new_transaksi.save()
-            id_akun = str(self.form.cleaned_data['id_account'])
             nabung = int(self.form.cleaned_data['amount'])
+            #menyimpan data interest simpanan
+            new_interest = Accounttransactions(
+                id_account = Accounts.objects.get(id_account=self.form.cleaned_data['id_account']),
+                type = "interest",
+                amount = nabung*0.1,
+            )
+            new_interest.save()
+            id_akun = str(self.form.cleaned_data['id_account'])
             akun = Accounts.objects.get(id_account=id_akun)
             akun.balance = akun.balance + nabung + (nabung*0.1) #saving with interest
             akun.save()
@@ -339,3 +346,9 @@ def contact(request):
 
     }
     return render(request, 'bank/contact.html', context)
+
+def about(request):
+    context = {
+
+    }
+    return render(request, 'bank/about.html', context)
